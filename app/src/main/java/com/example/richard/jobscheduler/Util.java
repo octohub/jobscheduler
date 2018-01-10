@@ -4,7 +4,6 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
-import java.util.concurrent.TimeUnit;
 
 public class Util {
 
@@ -12,10 +11,8 @@ public class Util {
     ComponentName serviceComponent = new ComponentName(context, TestJobService.class);
     JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
 
-    builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
-    builder.setPeriodic(TimeUnit.DAYS.toMillis(1) / 2);
-    builder.setBackoffCriteria(TimeUnit.MINUTES.toMillis(1), JobInfo.BACKOFF_POLICY_EXPONENTIAL);
-    builder.setPersisted(true);
+    builder.setMinimumLatency(0); // wait at least
+    builder.setOverrideDeadline(0); // maximum delay
 
     JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
     if (jobScheduler != null) {

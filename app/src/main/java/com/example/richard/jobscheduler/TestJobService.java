@@ -8,10 +8,12 @@ import android.net.Uri;
 public class TestJobService extends JobService {
 
   @Override public boolean onStartJob(JobParameters params) {
-    Intent intent = new Intent(Intent.ACTION_VIEW,
-        Uri.parse("https://stackoverflow.com/questions/48133381/how-to-name-components-of-a-pair"));
+    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.cnn.com/"));
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(intent);
+
+    Util.scheduleJob(this);
+
     return false;
   }
 
